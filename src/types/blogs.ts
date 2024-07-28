@@ -12,6 +12,14 @@ export interface Category {
   revisedAt: string;
   name: string;
 }
+export interface Tag {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  revisedAt: string;
+  tag: string;
+}
 
 export interface Blog {
   id: string;
@@ -23,6 +31,7 @@ export interface Blog {
   content: string;
   eyecatch: Eyecatch;
   category: Category;
+  tags: Tag[];
 }
 
 export interface BlogResponse {

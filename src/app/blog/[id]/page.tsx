@@ -27,7 +27,8 @@ export default async function Blog({ params }: Props) {
 
   return (
     <main className="flex min-h-screen flex-col items-center  p-24">
-      <div>
+      <div className="bg-white shadow-md rounded-lg p-6 max-w-4xl w-full">
+        {" "}
         <h2>{data.title}</h2>
         <p>{data.createdAt}</p>
         <div
