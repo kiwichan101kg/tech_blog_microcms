@@ -1,8 +1,10 @@
 import { client } from "@/lib/client";
 import React from "react";
 import type { Blog } from "@/types/blogs";
-import DOMPurify from "dompurify";
-import Body from "@/components/Body";
+import { sanitize } from "@/lib/sanitize";
+import cheerio from "cheerio";
+import hljs from "highlight.js";
+import "highlight.js/styles/night-owl.css";
 
 type Props = {
   params: {
@@ -15,12 +17,25 @@ export default async function Blog({ params }: Props) {
     contentId: params.id,
   });
 
+  // codeにシンタックスハイライトを当てる
+  const $ = cheerio.load(data.content);
+  $("pre code").each((_, elm) => {
+    const result = hljs.highlightAuto($(elm).text());
+    $(elm).html(result.value);
+    $(elm).addClass("hljs");
+  });
+
   return (
     <main className="flex min-h-screen flex-col items-center  p-24">
       <div>
         <h2>{data.title}</h2>
         <p>{data.createdAt}</p>
-        <Body content={data.content} />
+        <div
+          className="prose max-w-none"
+          dangerouslySetInnerHTML={{
+            __html: `${sanitize($.html())}`,
+          }}
+        ></div>
       </div>
     </main>
   );
