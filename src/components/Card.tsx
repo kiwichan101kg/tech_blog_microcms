@@ -2,6 +2,9 @@
 import React from "react";
 import Link from "next/link";
 import { Blog } from "@/types/blogs";
+import { formatDate } from "@/utils/formatDate";
+import { CalendarIcon } from "./SVG/CalendarIcon";
+import { ReloadIcon } from "./SVG/ReloadIcon";
 
 type CardProps = {
   blog: Blog;
@@ -24,8 +27,27 @@ const Card = ({ blog }: CardProps) => {
             />
           )}
           <div className="p-6">
-            <p className="text-gray-500 text-sm">{blog.createdAt}</p>
-            <p className="text-gray-500 text-sm mb-2">{blog.updatedAt}</p>
+            <div className="flex gap-2">
+              <time
+                dateTime={new Date(blog.createdAt).toISOString()}
+                className="text-gray-500 text-sm flex"
+              >
+                <span className="pr-0.5">
+                  <CalendarIcon />
+                </span>
+                {formatDate(blog.createdAt)}
+              </time>
+              <time
+                dateTime={new Date(blog.updatedAt).toISOString()}
+                className="text-gray-500 text-sm mb-2 flex"
+              >
+                <span className="pr-0.5">
+                  <ReloadIcon />
+                </span>
+                {formatDate(blog.updatedAt)}
+              </time>
+            </div>
+
             <h2 className="text-xl font-semibold mb-4">{blog.title}</h2>
             <ul className="flex flex-wrap">
               {blog.tags.map((i) => (
@@ -33,7 +55,7 @@ const Card = ({ blog }: CardProps) => {
                   key={i.id}
                   className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 mb-2 px-2.5 py-0.5 rounded"
                 >
-                  {i.tag}
+                  #&nbsp;{i.tag}
                 </li>
               ))}
             </ul>

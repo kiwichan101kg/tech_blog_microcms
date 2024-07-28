@@ -5,6 +5,7 @@ import { sanitize } from "@/lib/sanitize";
 import cheerio from "cheerio";
 import hljs from "highlight.js";
 import "highlight.js/styles/night-owl.css";
+import { Date } from "@/components/Date";
 
 type Props = {
   params: {
@@ -28,9 +29,9 @@ export default async function Blog({ params }: Props) {
   return (
     <main className="flex min-h-screen flex-col items-center  p-24">
       <div className="bg-white shadow-md rounded-lg p-6 max-w-4xl w-full">
-        {" "}
-        <h2>{data.title}</h2>
-        <p>{data.createdAt}</p>
+        <h1>{data.title}</h1>
+        <Date createdAt={data.createdAt} updatedAt={data.updatedAt} />
+
         <div
           className="prose max-w-none"
           dangerouslySetInnerHTML={{
