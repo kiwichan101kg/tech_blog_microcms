@@ -6,11 +6,15 @@ body {
   @apply bg-gray-50;
 }
 
-/* microCMSカスタムクラス */
-.head1 {
-  @apply text-4xl text-gray-800;
+h1 {
+  @apply pb-4;
 }
 
+hr {
+  @apply pt-6;
+}
+
+/* microCMSカスタムクラス */
 .head-decoration {
   @apply relative pl-4;
 }
